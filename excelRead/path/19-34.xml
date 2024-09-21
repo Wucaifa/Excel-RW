@@ -1,0 +1,12 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="656" start.y="93" start.heading="270" goal.boardstate="1" goal.x="643" goal.y="273" goal.heading="28.886600000000001" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="57.768804267982084">
+        <transport_path pathfound="true" runtime="0.56735539999999995">
+            <transport_section id="0" start.boardstate="1" start.x="656" start.y="93" start.heading="270" goal.boardstate="1" goal.x="656" goal.y="253.38282995166836" goal.heading="270" duration="45.698196606405006"/>
+            <transport_section id="1" start.boardstate="1" start.x="656" start.y="253.38282995166836" start.heading="270" goal.boardstate="1" goal.x="657.06223146772675" goal.y="257.18813430511744" goal.heading="301.19361381076351" duration="1.1257040667956204"/>
+            <transport_section id="2" start.boardstate="1" start.x="657.06223146772675" start.y="257.18813430511744" start.heading="301.19361381076351" goal.boardstate="1" goal.x="659.94177525620205" goal.y="259.89311202843794" goal.heading="332.38722762152702" duration="1.1257040667955991"/>
+            <transport_section id="3" start.boardstate="1" start.x="659.94177525620205" start.y="259.89311202843794" start.heading="332.38722762152702" goal.boardstate="1" goal.x="663.80599396804985" goal.y="260.71560255143095" goal.heading="3.5808414322905078" duration="1.1257040667956417"/>
+            <transport_section id="4" start.boardstate="1" start.x="663.80599396804985" start.y="260.71560255143095" start.heading="3.5808414322905078" goal.boardstate="1" goal.x="666.89634422228562" goal.y="259.81580016498418" goal.heading="28.886600000000001" duration="0.91710520945374441"/>
+            <transport_section id="5" start.boardstate="1" start.x="666.89634422228562" start.y="259.81580016498418" start.heading="28.886600000000001" goal.boardstate="1" goal.x="643" goal.y="273" goal.heading="28.886600000000001" duration="7.7763902517364727"/>
+        </transport_path>
+    </section>
+</section_set>

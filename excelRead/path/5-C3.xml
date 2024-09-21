@@ -1,0 +1,12 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="227" start.y="142" start.heading="334.17899999999997" goal.boardstate="1" goal.x="621" goal.y="225" goal.heading="184.90000000000001" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="118.5006671038435">
+        <transport_path pathfound="true" runtime="0.81536900000000001">
+            <transport_section id="0" start.boardstate="1" start.x="227" start.y="142" start.heading="334.17899999999997" goal.boardstate="1" goal.x="228.33827594466479" goal.y="142.43771169527795" goal.heading="349.59812627697568" duration="0.40119535504902415"/>
+            <transport_section id="1" start.boardstate="1" start.x="228.33827594466479" start.y="142.43771169527795" start.heading="349.59812627697568" goal.boardstate="1" goal.x="621.49925959822144" goal.y="214.60954572746769" goal.heading="349.59812627697568" duration="113.89595123870058"/>
+            <transport_section id="2" start.boardstate="1" start.x="621.49925959822144" start.y="214.60954572746769" start.heading="349.59812627697568" goal.boardstate="1" goal.x="624.80133316477941" goal.y="216.69198415106348" goal.heading="305.92706694190679" duration="1.1123388024526406"/>
+            <transport_section id="3" start.boardstate="1" start.x="624.80133316477941" start.y="216.69198415106348" start.heading="305.92706694190679" goal.boardstate="1" goal.x="625.7518164567698" goal.y="220.47838364645179" goal.heading="262.2560076068379" duration="1.112338802452669"/>
+            <transport_section id="4" start.boardstate="1" start.x="625.7518164567698" start.y="220.47838364645179" start.heading="262.2560076068379" goal.boardstate="1" goal.x="623.82474248378696" goal.y="223.87347208855186" goal.heading="218.58494827176898" duration="1.1123388024526548"/>
+            <transport_section id="5" start.boardstate="1" start.x="623.82474248378696" start.y="223.87347208855186" start.heading="218.58494827176898" goal.boardstate="1" goal.x="621" goal.y="225" goal.heading="184.90000000000001" duration="0.86650410273593081"/>
+        </transport_path>
+    </section>
+</section_set>

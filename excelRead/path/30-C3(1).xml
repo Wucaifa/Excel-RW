@@ -1,0 +1,11 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="804" start.y="262" start.heading="90" goal.boardstate="1" goal.x="621" goal.y="225.00000000000003" goal.heading="184.89999999999998" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="54.01746428417345">
+        <transport_path pathfound="true" runtime="0.73710100000000001">
+            <transport_section id="0" start.boardstate="1" start.x="804" start.y="262" start.heading="90" goal.boardstate="1" goal.x="802.93776853227325" goal.y="258.19469564655088" goal.heading="121.19361381076351" duration="1.1257040667956293"/>
+            <transport_section id="1" start.boardstate="1" start.x="802.93776853227325" start.y="258.19469564655088" start.heading="121.19361381076351" goal.boardstate="1" goal.x="800.05822474379795" goal.y="255.48971792323042" goal.heading="152.38722762152699" duration="1.125704066795592"/>
+            <transport_section id="2" start.boardstate="1" start.x="800.05822474379795" start.y="255.48971792323042" start.heading="152.38722762152699" goal.boardstate="1" goal.x="797.88122746312501" goal.y="254.75629284974306" goal.heading="170.37568128646654" duration="0.65455203912399895"/>
+            <transport_section id="3" start.boardstate="1" start.x="797.88122746312501" start.y="254.75629284974306" start.heading="170.37568128646654" goal.boardstate="1" goal.x="622.85591216431067" goal.y="225.07655792140375" goal.heading="170.37568128646654" duration="50.582245664294298"/>
+            <transport_section id="4" start.boardstate="1" start.x="622.85591216431067" start.y="225.07655792140375" start.heading="170.37568128646654" goal.boardstate="1" goal.x="621" goal.y="225.00000000000003" goal.heading="184.89999999999998" duration="0.529258447163933"/>
+        </transport_path>
+    </section>
+</section_set>

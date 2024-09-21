@@ -1,0 +1,12 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="134" start.y="147" start.heading="189" goal.boardstate="1" goal.x="394.00000000000006" goal.y="93.000000000000028" goal.heading="297.97899999999998" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="86.049945487445086">
+        <transport_path pathfound="true" runtime="0.95036670000000001">
+            <transport_section id="0" start.boardstate="1" start.x="134" start.y="147" start.heading="189" goal.boardstate="1" goal.x="124.12311659404862" goal.y="148.56434465040232" goal.heading="266.98403452690877" duration="2.8493197569949515"/>
+            <transport_section id="1" start.boardstate="1" start.x="124.12311659404862" start.y="148.56434465040232" start.heading="266.98403452690877" goal.boardstate="1" goal.x="123.59697437005514" goal.y="158.5504937760729" goal.heading="344.96806905381749" duration="2.8493197569949515"/>
+            <transport_section id="2" start.boardstate="1" start.x="123.59697437005514" start.y="158.5504937760729" start.heading="344.96806905381749" goal.boardstate="1" goal.x="133.25478873410617" goal.y="161.14406693091732" goal.heading="62.952103580726238" duration="2.8493197569949515"/>
+            <transport_section id="3" start.boardstate="1" start.x="133.25478873410617" start.y="161.14406693091732" start.heading="62.952103580726238" goal.boardstate="1" goal.x="137.85239785528898" goal.y="157.40032343615985" goal.heading="15.358405989288332" duration="1.6893757162645695"/>
+            <transport_section id="4" start.boardstate="1" start.x="137.85239785528898" start.y="157.40032343615985" start.heading="15.358405989288332" goal.boardstate="1" goal.x="385.56568819999563" goal.y="89.362148556833318" goal.heading="15.358405989288332" duration="73.195396245265471"/>
+            <transport_section id="5" start.boardstate="1" start.x="385.56568819999563" start.y="89.362148556833318" start.heading="15.358405989288332" goal.boardstate="1" goal.x="394.00000000000006" goal.y="93.000000000000028" goal.heading="297.97899999999998" duration="2.6172142549301896"/>
+        </transport_path>
+    </section>
+</section_set>

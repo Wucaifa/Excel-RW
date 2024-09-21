@@ -1,0 +1,12 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="285" start.y="103" start.heading="309.17399999999998" goal.boardstate="1" goal.x="377" goal.y="185.00000000000003" goal.heading="180.97" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="37.703503985171992">
+        <transport_path pathfound="true" runtime="0.83411380000000002">
+            <transport_section id="0" start.boardstate="1" start.x="285" start.y="103" start.heading="309.17399999999998" goal.boardstate="1" goal.x="285.88943750810699" goal.y="103.86055168784803" goal.heading="322.71730916703291" duration="0.35263118325022402"/>
+            <transport_section id="1" start.boardstate="1" start.x="285.88943750810699" start.y="103.86055168784803" start.heading="322.71730916703291" goal.boardstate="1" goal.x="380.09008794845806" goal.y="175.57725362140278" goal.heading="322.71730916703291" duration="33.734126399725135"/>
+            <transport_section id="2" start.boardstate="1" start.x="380.09008794845806" start.y="175.57725362140278" start.heading="322.71730916703291" goal.boardstate="1" goal.x="382.09382342161337" goal.y="178.9276690852891" goal.heading="279.04624983196402" duration="1.1123388024526619"/>
+            <transport_section id="3" start.boardstate="1" start.x="382.09382342161337" start.y="178.9276690852891" start.heading="279.04624983196402" goal.boardstate="1" goal.x="381.2296380785935" goal.y="182.73469197987995" goal.heading="235.3751904968951" duration="1.1123388024526548"/>
+            <transport_section id="4" start.boardstate="1" start.x="381.2296380785935" start.y="182.73469197987995" start.heading="235.3751904968951" goal.boardstate="1" goal.x="377.97574439072855" goal.y="184.89163785196445" goal.heading="191.70413116182621" duration="1.112338802452669"/>
+            <transport_section id="5" start.boardstate="1" start.x="377.97574439072855" start.y="184.89163785196445" start.heading="191.70413116182621" goal.boardstate="1" goal.x="377" goal.y="185.00000000000003" goal.heading="180.97" duration="0.27972999483864669"/>
+        </transport_path>
+    </section>
+</section_set>

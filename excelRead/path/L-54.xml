@@ -1,0 +1,9 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="383" start.y="242" start.heading="189.32999999999998" goal.boardstate="1" goal.x="280" goal.y="185" goal.heading="178.00000000000006" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="33.617389322298642">
+        <transport_path pathfound="true" runtime="0.73293940000000002">
+            <transport_section id="0" start.boardstate="1" start.x="383" start.y="242" start.heading="189.32999999999998" goal.boardstate="1" goal.x="379.53879081817104" goal.y="241.37413633810436" goal.heading="150.17079880430828" duration="1.0022023781284268"/>
+            <transport_section id="1" start.boardstate="1" start.x="379.53879081817104" start.y="241.37413633810436" start.heading="150.17079880430828" goal.boardstate="1" goal.x="282.42725989428004" goal.y="185.69209194304852" goal.heading="150.17079880430828" duration="31.896018307190655"/>
+            <transport_section id="2" start.boardstate="1" start.x="282.42725989428004" start.y="185.69209194304852" start.heading="150.17079880430828" goal.boardstate="1" goal.x="280" goal.y="185" goal.heading="178.00000000000006" duration="0.71916863697956046"/>
+        </transport_path>
+    </section>
+</section_set>

@@ -1,0 +1,12 @@
+<section_set>
+    <section id="0" tasknumber="3" start.boardstate="1" start.x="135" start.y="146" start.heading="334.17899999999997" goal.boardstate="1" goal.x="668" goal.y="262" goal.heading="180" wingstate="1" starttime="2000/01/01-00:00:00.000" duration="159.41430968430819">
+        <transport_path pathfound="true" runtime="0.79582640000000004">
+            <transport_section id="0" start.boardstate="1" start.x="135" start.y="146" start.heading="334.17899999999997" goal.boardstate="1" goal.x="136.26933121890119" goal.y="146.42457848451727" goal.heading="348.83186329196496" duration="0.38136935620191165"/>
+            <transport_section id="1" start.boardstate="1" start.x="136.26933121890119" start.y="146.42457848451727" start.heading="348.83186329196496" goal.boardstate="1" goal.x="669.01646724861098" goal.y="251.6034992703367" goal.heading="348.83186329196496" duration="154.72675123495861"/>
+            <transport_section id="2" start.boardstate="1" start.x="669.01646724861098" start.y="251.6034992703367" start.heading="348.83186329196496" goal.boardstate="1" goal.x="672.29039620720323" goal.y="253.72991146018154" goal.heading="305.16080395689607" duration="1.1123388024526832"/>
+            <transport_section id="3" start.boardstate="1" start.x="672.29039620720323" start.y="253.72991146018154" start.heading="305.16080395689607" goal.boardstate="1" goal.x="673.19015741369901" goal.y="257.52868355104386" goal.heading="261.48974462182713" duration="1.1123388024526548"/>
+            <transport_section id="4" start.boardstate="1" start.x="673.19015741369901" start.y="257.52868355104386" start.heading="261.48974462182713" goal.boardstate="1" goal.x="671.21785185414194" goal.y="260.89769682005448" goal.heading="217.81868528675827" duration="1.1123388024526548"/>
+            <transport_section id="5" start.boardstate="1" start.x="671.21785185414194" start.y="260.89769682005448" start.heading="217.81868528675827" goal.boardstate="1" goal.x="668" goal.y="262" goal.heading="180" duration="0.96917268578968674"/>
+        </transport_path>
+    </section>
+</section_set>
