@@ -56,7 +56,7 @@ void ExcelRead::readExcel(const QString &filePath) {
         }
 
         //position
-        for (int row = 2; row <= rowCount; ++row) {
+        for (int row = 3; row <= rowCount; ++row) {
             QVector<Position> temp;
             for (int col = 1; col <= colCount; ++col) {
                 QXlsx::Cell *cell = xlsx.cellAt(row, col);
@@ -139,7 +139,7 @@ void ExcelRead::matchPath(){
         PlaneTransection planetran;
         planetran.id = plane.id;
         for(auto& tranPath:plane.transSections){
-            AgentSection section;
+
             m_currTranPath = QApplication::applicationDirPath() + "/path/" +
                     tranPath.startPosition + "-" +tranPath.goalPosition + ".xml";
             //QDomDocument 用于解析xml
@@ -165,6 +165,7 @@ void ExcelRead::matchPath(){
             while(!node.isNull()) {
                 QDomElement sEle = node.toElement(); // try to convert the node to an element.
                 if(sEle.nodeName() == "section"){
+                    AgentSection section;
                     section.id = sEle.attribute("id").toInt();
                     section.tasknumber = sEle.attribute("tasknumber").toInt();
                     section.agentStartX = sEle.attribute("start.x").toFloat();
@@ -178,49 +179,47 @@ void ExcelRead::matchPath(){
                     section.agentStartTime = tranPath.startTime;
                     section.agentStartBoardstateType = static_cast<emBoardstate>(sEle.attribute("start.boardstate").toInt());
                     section.agentGoalBoardstateType = static_cast<emBoardstate>(sEle.attribute("goal.boardstate").toInt());
-                }
-
-                int tsc = sEle.childNodes().count();
-                if(tsc > 0)
-                {
-                    for(int m = 0; m < tsc; ++m)
-                    {
-                        const QDomNode& tnode = sEle.childNodes().at(m);
-                        const auto &tEle = tnode.toElement();
-                        if(tnode.nodeName() == "transport_path")
+                    int tsc = sEle.childNodes().count();
+                    if(tsc > 0){
+                        for(int m = 0; m < tsc; ++m)
                         {
-                            section.pathfound = tEle.attribute("pathfound") == "true";
-                            section.runtime = tEle.attribute("runtime").toDouble();
-                            int t_sc = tEle.childNodes().count();
-                            for(int n = 0; n < t_sc; ++n)
+                            const QDomNode& tnode = sEle.childNodes().at(m);
+                            const auto &tEle = tnode.toElement();
+                            if(tnode.nodeName() == "transport_path")
                             {
-                                const QDomNode& t_node = tEle.childNodes().at(n);
-                                const auto &t_Ele = t_node.toElement();
-                                if(t_node.nodeName() == "transport_section")
+                                section.pathfound = tEle.attribute("pathfound") == "true";
+                                section.runtime = tEle.attribute("runtime").toDouble();
+                                int t_sc = tEle.childNodes().count();
+                                for(int n = 0; n < t_sc; ++n)
                                 {
-                                    AgentTransportSection temp3;
-                                    temp3.id = t_Ele.attribute("id").toInt();
-                                    temp3.agentStartX = t_Ele.attribute("start.x").toFloat();
-                                    temp3.agentStartY = t_Ele.attribute("start.y").toFloat();
-                                    temp3.agentGoalX = t_Ele.attribute("goal.x").toFloat();
-                                    temp3.agentGoalY = t_Ele.attribute("goal.y").toFloat();
-                                    temp3.agentStartHeading = t_Ele.attribute("start.heading").toFloat();
-                                    temp3.agentGoalHeading = t_Ele.attribute("goal.heading").toFloat();
+                                    const QDomNode& t_node = tEle.childNodes().at(n);
+                                    const auto &t_Ele = t_node.toElement();
+                                    if(t_node.nodeName() == "transport_section")
+                                    {
+                                        AgentTransportSection temp3;
+                                        temp3.id = t_Ele.attribute("id").toInt();
+                                        temp3.agentStartX = t_Ele.attribute("start.x").toFloat();
+                                        temp3.agentStartY = t_Ele.attribute("start.y").toFloat();
+                                        temp3.agentGoalX = t_Ele.attribute("goal.x").toFloat();
+                                        temp3.agentGoalY = t_Ele.attribute("goal.y").toFloat();
+                                        temp3.agentStartHeading = t_Ele.attribute("start.heading").toFloat();
+                                        temp3.agentGoalHeading = t_Ele.attribute("goal.heading").toFloat();
 
-                                    temp3.agentStartBoardstateType = static_cast<emBoardstate>(t_Ele.attribute("start.boardstate").toInt());
-                                    temp3.agentGoalBoardstateType = static_cast<emBoardstate>(t_Ele.attribute("goal.boardstate").toInt());
-                                    temp3.agentgDuration = t_Ele.attribute("duration").toFloat();
-                                    section.transportSection.append(temp3);
-                                    //temp3.agentStartTime = starttime.toString(TimeFORMAT);
-                                    //starttime = starttime.addSecs(temp3.agentgDuration);
+                                        temp3.agentStartBoardstateType = static_cast<emBoardstate>(t_Ele.attribute("start.boardstate").toInt());
+                                        temp3.agentGoalBoardstateType = static_cast<emBoardstate>(t_Ele.attribute("goal.boardstate").toInt());
+                                        temp3.agentgDuration = t_Ele.attribute("duration").toFloat();
+                                        section.transportSection.append(temp3);
+                                        //temp3.agentStartTime = starttime.toString(TimeFORMAT);
+                                        //starttime = starttime.addSecs(temp3.agentgDuration);
+                                    }
                                 }
-                            }
 
+                            }
                         }
                     }
+                    planetran.tranSection.append(section);
                 }
                 node = node.nextSibling();
-                planetran.tranSection.append(section);
             }
         }
         planeTranInfo.append(planetran);
