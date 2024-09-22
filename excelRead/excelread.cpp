@@ -258,9 +258,10 @@ void ExcelRead::xmlRewrite_startTime(){
             //sectionID排序
             section.id = sectionIndex;
             //6:起飞，修改前第一条等待的starttime,修改前第二条转运的starttime
-            if((section.tasknumber == 6 && sectionIndex > 1) &&
-                    (plane.agentSection[sectionIndex - 1].tasknumber == 12 &&
-                     plane.agentSection[sectionIndex - 2].tasknumber == 3)){
+            if(((section.tasknumber == 6 && sectionIndex > 1) && sectionIndex < (planesSize - 1)) &&
+                    ((plane.agentSection[sectionIndex - 1].tasknumber == 12 &&
+                     plane.agentSection[sectionIndex - 2].tasknumber == 3 ) &&
+                    plane.agentSection[sectionIndex + 1].tasknumber == 8)){
                 QDateTime startDateTime = QDateTime::fromString(section.agentStartTime, TimeFORMAT);
                 //1
                 qint64 timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex - 1].agentgDuration * 1000);
@@ -270,6 +271,11 @@ void ExcelRead::xmlRewrite_startTime(){
                 timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex - 2].agentgDuration * 1000);
                 startDateTime = startDateTime.addMSecs(-timeInterval);
                 plane.agentSection[sectionIndex - 2].agentStartTime = startDateTime.toString(TimeFORMAT);
+                //后一
+                startDateTime = QDateTime::fromString(section.agentStartTime, TimeFORMAT);
+                timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex + 1].agentgDuration * 1000);
+                startDateTime = startDateTime.addMSecs(timeInterval);
+                plane.agentSection[sectionIndex + 1].agentStartTime = startDateTime.toString(TimeFORMAT);
             }
             //7:降落，后一段
             else if((section.tasknumber == 7 && (sectionIndex < (planesSize - 1))) &&
