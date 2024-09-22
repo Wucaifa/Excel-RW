@@ -15,7 +15,9 @@ int main(int argc, char *argv[])
     excelread.agentpathMatch(agentxmlfilePath);
     excelread.readXml();
     excelread.matchPath();
+    excelread.xmlRewrite_startTime();
     excelread.writeXml();
+
 //    excelread.writeExcel();
 
 //    QString agentxmlfilePath = "C:/Users/WuCF/Desktop/test001.xml";

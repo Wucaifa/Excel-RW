@@ -9,9 +9,17 @@
 #include <QFile>
 #include<QVector>
 #include<QDateTime>
+
+
 struct StartTime{
     int col;
     QString starttime;
+};
+
+struct TaskInfo{
+    QString taskID;
+    int col;//判断时间信息是否在这一个波次里
+    QVector<StartTime> taskStartTime;
 };
 
 struct Position{
@@ -45,9 +53,11 @@ public:
     void readXml();
     void writeXml();
     void agentpathMatch(const QString &filePath);
-    void xmlRewrite_tasknumber3();//重写起飞section前一段转运路径时间,针对m_logInfo,排序sectionID
+    void xmlRewrite_startTime();//重写起飞section前二段section时间,重写降落section后一段section时间,针对m_logInfo,排序sectionID针对m_logInfo,排序sectionID
+
 private:
     QVector<StartTime> starttime;
+    QVector<TaskInfo> taskInfo;
     QVector<QVector<Position>> position;
     QVector<PlaneExcel> planeInfo;
     QVector<PlaneTransection> planeTranInfo;

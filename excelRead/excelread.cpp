@@ -16,14 +16,42 @@ void ExcelRead::readExcel(const QString &filePath) {
         int rowCount = xlsx.dimension().rowCount();
         int colCount = xlsx.dimension().columnCount();
 
-        //starttime
+        //taskInfo,第一行
         for (int col = 1; col <= colCount; ++col) {
             QXlsx::Cell *cell = xlsx.cellAt(1, col);
+            if (cell && !cell->value().isNull()) {
+                TaskInfo temp;
+                temp.col = col;
+                temp.taskID = cell->value().toString();
+                temp.taskStartTime = {};
+                taskInfo.append(temp);
+            }
+        }
+
+        //starttime，第二行
+        for (int col = 1; col <= colCount; ++col) {
+            QXlsx::Cell *cell = xlsx.cellAt(2, col);
             if (cell && !cell->value().isNull()) {
                 StartTime temp;
                 temp.col = col;
                 temp.starttime = cell->value().toString();
                 starttime.append(temp);
+            }
+        }
+
+        //补全taskInfo信息
+        int taskInfoSize = taskInfo.size();
+        for(int i = 0; i < (taskInfoSize - 1); ++i){
+            int left = i, right = i + 1;
+            for(auto time:starttime){
+                if(time.col > taskInfo[left].col && time.col < taskInfo[right].col){
+                    taskInfo[i].taskStartTime.push_back(time);
+                }
+            }
+        }
+        for(auto time:starttime){
+            if(time.col > taskInfo[taskInfoSize - 1].col){
+                taskInfo[taskInfoSize - 1].taskStartTime.push_back(time);
             }
         }
 
@@ -47,21 +75,49 @@ void ExcelRead::readExcel(const QString &filePath) {
         for(auto& pos:position){
             PlaneExcel temp;
             temp.id = pos[0].position;
-            int startTimeIndex = 0;
+            int taskIndex = 0;
+//            int startTimeIndex = 0;
             int posIndex = 1;
-            while(startTimeIndex < starttime.size() && posIndex + 1 < pos.size()){
-                qint64 timeInterval = static_cast<qint64>(20 * 1000);//20s间隔
-                QDateTime startDateTime = QDateTime::fromString(starttime[startTimeIndex].starttime, TimeFORMAT);
-                timeInterval = timeInterval * (pos[posIndex + 1].col - starttime[startTimeIndex].col);
-                startDateTime = startDateTime.addMSecs(timeInterval);
-                path path;
-                path.startTime = startDateTime.toString(TimeFORMAT);
-                path.startPosition = pos[posIndex].position;
-                path.goalPosition = pos[posIndex + 1].position;
-                temp.transSections.append(path);
-                startTimeIndex++;
+            while(taskIndex < taskInfo.size() && posIndex + 1 < pos.size()){
+                if (taskInfo[taskIndex].taskStartTime.size() > 1){
+                    for(auto time:taskInfo[taskIndex].taskStartTime){
+                        if(time.col == pos[posIndex + 1].col){
+                            QDateTime startDateTime = QDateTime::fromString(time.starttime, TimeFORMAT);
+                            path path;
+                            path.startTime = startDateTime.toString(TimeFORMAT);
+                            path.startPosition = pos[posIndex].position;
+                            path.goalPosition = pos[posIndex + 1].position;
+                            temp.transSections.append(path);
+                            break;
+                        }
+                    }
+                }else if(taskInfo[taskIndex].taskStartTime.size() == 1){
+                    qint64 timeInterval = static_cast<qint64>(20 * 1000);//20s间隔
+                    QDateTime startDateTime = QDateTime::fromString(taskInfo[taskIndex].taskStartTime[0].starttime, TimeFORMAT);
+                    timeInterval = timeInterval * (pos[posIndex + 1].col - taskInfo[taskIndex].taskStartTime[0].col);
+                    startDateTime = startDateTime.addMSecs(timeInterval);
+                    path path;
+                    path.startTime = startDateTime.toString(TimeFORMAT);
+                    path.startPosition = pos[posIndex].position;
+                    path.goalPosition = pos[posIndex + 1].position;
+                    temp.transSections.append(path);
+                }
+                taskIndex++;
                 posIndex += 2;
             }
+//            while(startTimeIndex < starttime.size() && posIndex + 1 < pos.size()){
+//                qint64 timeInterval = static_cast<qint64>(20 * 1000);//20s间隔
+//                QDateTime startDateTime = QDateTime::fromString(starttime[startTimeIndex].starttime, TimeFORMAT);
+//                timeInterval = timeInterval * (pos[posIndex + 1].col - starttime[startTimeIndex].col);
+//                startDateTime = startDateTime.addMSecs(timeInterval);
+//                path path;
+//                path.startTime = startDateTime.toString(TimeFORMAT);
+//                path.startPosition = pos[posIndex].position;
+//                path.goalPosition = pos[posIndex + 1].position;
+//                temp.transSections.append(path);
+//                startTimeIndex++;
+//                posIndex += 2;
+//            }
             planeInfo.append(temp);
         }
 
@@ -195,20 +251,38 @@ void ExcelRead::agentpathMatch(const QString &filePath){
     m_currAgentPath = filePath;
 }
 
-void ExcelRead::xmlRewrite_tasknumber3(){
+void ExcelRead::xmlRewrite_startTime(){
     for(auto& plane:m_logInfo.agentPlaneInfo){
+        int planesSize = m_logInfo.agentOperInfo.size();
         int sectionIndex = 0;
         for(auto& section:plane.agentSection){
             //sectionID排序
             section.id = sectionIndex;
-            //6:起飞，修改前一条转运的starttime
-            if(section.tasknumber == 6 && (sectionIndex > 0 && plane.agentSection[sectionIndex - 1].tasknumber == 3)){
+            //6:起飞，修改前第一条等待的starttime,修改前第二条转运的starttime
+            if((section.tasknumber == 6 && sectionIndex > 1) &&
+                    (plane.agentSection[sectionIndex - 1].tasknumber == 12 &&
+                     plane.agentSection[sectionIndex - 2].tasknumber == 3)){
                 QDateTime startDateTime = QDateTime::fromString(section.agentStartTime, TimeFORMAT);
+                //1
                 qint64 timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex - 1].agentgDuration * 1000);
                 startDateTime = startDateTime.addMSecs(-timeInterval);
                 plane.agentSection[sectionIndex - 1].agentStartTime = startDateTime.toString(TimeFORMAT);
+                //2
+                timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex - 2].agentgDuration * 1000);
+                startDateTime = startDateTime.addMSecs(-timeInterval);
+                plane.agentSection[sectionIndex - 2].agentStartTime = startDateTime.toString(TimeFORMAT);
+            }
+            //7:降落，后一段
+            else if((section.tasknumber == 7 && (sectionIndex < (planesSize - 1))) &&
+                     plane.agentSection[sectionIndex + 1].tasknumber == 3){
+                QDateTime startDateTime = QDateTime::fromString(section.agentStartTime, TimeFORMAT);
+                //1
+                qint64 timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex].agentgDuration * 1000);
+                startDateTime = startDateTime.addMSecs(timeInterval);
+                plane.agentSection[sectionIndex + 1].agentStartTime = startDateTime.toString(TimeFORMAT);
             }
             sectionIndex++;
         }
     }
 }
+
