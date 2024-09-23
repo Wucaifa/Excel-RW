@@ -341,9 +341,12 @@ void ExcelRead::xmlWrite_deflectors(){
             if(id < defSize - 1){
                 QDateTime startDateTime_curr = QDateTime::fromString(section.startTime, TimeFORMAT);
                 QDateTime startDateTime_next = QDateTime::fromString(deflector.deflectorSection[id + 1].startTime, TimeFORMAT);
-                qint64 duration = startDateTime_curr.msecsTo(startDateTime_next);
+                qint64 duration = startDateTime_curr.secsTo(startDateTime_next);
                 section.duration = static_cast<float>(duration);
             }
+            ++id;
         }
     }
+    xmlFileOperation::getInstance()->setCurrentFile(m_currAgentPath);
+    xmlFileOperation::getInstance()->rewriteXmlFile4Deflectorr(m_logInfo.agentDeflectorInfo);
 }

@@ -1148,7 +1148,7 @@ void xmlFileOperation::rewriteXmlFile4Deflectorr(const QVector<DeflectorParamete
 
     if(nodeList.size() == 1)    //找到了智能体大节点
     {
-        XMLElement * newnode = doc.NewElement("deflector_agent");
+
         if(updateID < 0)
         {
             auto oldNode = nodeList.at(0);
@@ -1158,6 +1158,7 @@ void xmlFileOperation::rewriteXmlFile4Deflectorr(const QVector<DeflectorParamete
             element->SetAttribute("number", agentInfos.size());
             for(auto &plane_agent : agentInfos)
             {
+                XMLElement * newnode = doc.NewElement("deflector_agent");
                 d->rewriteXmlNode4Deflector(doc,newnode,plane_agent);
                 element->LinkEndChild(newnode);
              }
@@ -1169,8 +1170,8 @@ void xmlFileOperation::rewriteXmlFile4Deflectorr(const QVector<DeflectorParamete
 
                 if(QString(element->Attribute("id")).toInt() == updateID)
                 {
+                    XMLElement * newnode = doc.NewElement("deflector_agent");
                     d->rewriteXmlNode4Deflector(doc,newnode,agentInfos.at(0));
-
                     Node->InsertAfterChild(element, newnode);
                     Node->DeleteChild(element);
                     break;
