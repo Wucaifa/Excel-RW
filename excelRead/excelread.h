@@ -54,7 +54,7 @@ public:
     void writeXml();
     void agentpathMatch(const QString &filePath);
     void xmlRewrite_startTime();//重写起飞section前二段section时间,重写降落section后一段section时间,针对m_logInfo,排序sectionID针对m_logInfo,排序sectionID
-
+    void xmlWrite_deflectors();//偏流板信息写入
 private:
     QVector<StartTime> starttime;
     QVector<TaskInfo> taskInfo;

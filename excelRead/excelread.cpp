@@ -150,13 +150,13 @@ void ExcelRead::matchPath(){
             int row = 0, column = 0;
             if (!file.open(QIODevice::ReadOnly)) {
                 qDebug()<<"转运xml未打开";
-                return;
+                continue;
             }
 
             if(!doc.setContent(&file, false, &error, &row, &column)){
                 qDebug() << "parse file failed:" << row << "---" << column <<":" <<error;
                 file.close();
-                return;
+                continue;
             }
 
             QDomElement root = doc.documentElement();
