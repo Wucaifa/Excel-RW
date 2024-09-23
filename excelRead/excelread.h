@@ -42,10 +42,28 @@ struct PlaneTransection{
     QString id;
     QVector<AgentSection> tranSection;
 };
-
 class ExcelRead
 {
 public:
+    QVector<QString> DeflectorNames = {"def01","def02","def03","def04"};
+    //浮点数键值注意精度
+    struct QPointFCompare {
+        bool operator()(const QPointF &p1, const QPointF &p2) const {
+            if (p1.x() == p2.x()) {
+                return p1.y() < p2.y();  // 如果 x 相等，比较 y
+            }
+            return p1.x() < p2.x();  // 先比较 x
+        }
+    };
+    std::map<QPointF, QString, QPointFCompare> DeflectorMapping = {
+        {QPointF(284,72),"def01"},
+        {QPointF(51,93),"def01"},
+        {QPointF(286,116),"def02"},
+        {QPointF(51,125),"def02"},
+        {QPointF(477,147),"def03"},
+        {QPointF(236,170),"def03"},
+        {QPointF(514,174),"def04"},
+        {QPointF(242,174),"def04"}};
     ExcelRead();
     void readExcel(const QString &filePath);
     void writeExcel();
@@ -54,7 +72,7 @@ public:
     void writeXml();
     void agentpathMatch(const QString &filePath);
     void xmlRewrite_startTime();//重写起飞section前二段section时间,重写降落section后一段section时间,针对m_logInfo,排序sectionID针对m_logInfo,排序sectionID
-    void xmlWrite_deflectors();//偏流板信息写入
+    void xmlWrite_deflectors();//偏流板信息写入,写入到m_logInfo里
 private:
     QVector<StartTime> starttime;
     QVector<TaskInfo> taskInfo;

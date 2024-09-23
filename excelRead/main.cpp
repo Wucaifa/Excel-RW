@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
     excelread.readXml();
     excelread.matchPath();
     excelread.xmlRewrite_startTime();
+    excelread.xmlWrite_deflectors();
     excelread.writeXml();
 
 //    excelread.writeExcel();

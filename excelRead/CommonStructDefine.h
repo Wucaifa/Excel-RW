@@ -66,23 +66,18 @@ struct ElevatorParameter
 struct DeflectorSection
 {
     int id;
-    int taskNumber;
-    int startLocationstate; //偏流板位置状态  0表示放平，1表示竖起
-    int GoalLocationstate;  //偏流板位置状态  0表示放平，1表示竖起
+    int highstate;
     QString startTime;
     float duration;
 };
 
-//偏流板 结构
+//偏流板 结构//已修改
 struct DeflectorParameter
 {
     int id;
     QString agentname;
-    int def_priority;
-    int def_location;   //位置状态， 0表示放平，1表示竖起
-    float rotationspeed;
+    int init_highstate;
 
-    int initLocationstate;
     QVector<DeflectorSection> deflectorSection;
 };
 

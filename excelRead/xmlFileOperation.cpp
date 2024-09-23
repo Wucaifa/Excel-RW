@@ -1186,21 +1186,19 @@ void xmlFileOperationPrivate::rewriteXmlNode4Deflector(XMLDocument& doc,XMLEleme
 {
     newnode->SetAttribute("id", QString::number(plane_agent.id).toStdString().c_str());
     newnode->SetAttribute("agentname", plane_agent.agentname.toStdString().c_str());
-    newnode->SetAttribute("def_priority", QString::number(plane_agent.def_priority).toStdString().c_str());
-    newnode->SetAttribute("def_location", plane_agent.def_location);
-    newnode->SetAttribute("rotationspeed", QString::number(plane_agent.rotationspeed).toStdString().c_str());
+//    newnode->SetAttribute("def_priority", QString::number(plane_agent.def_priority).toStdString().c_str());
+//    newnode->SetAttribute("def_location", plane_agent.def_location);
+//    newnode->SetAttribute("rotationspeed", QString::number(plane_agent.rotationspeed).toStdString().c_str());
 
     XMLElement * init_state_node = doc.NewElement("init_state");
-    init_state_node->SetAttribute("init.locationstate", QString::number(plane_agent.initLocationstate).toStdString().c_str());
+    init_state_node->SetAttribute("init.highstate", QString::number(plane_agent.init_highstate).toStdString().c_str());
     newnode->LinkEndChild(init_state_node);
 
     XMLElement * section_set = doc.NewElement("section_set");
     for (auto& planeSection : plane_agent.deflectorSection){
         XMLElement * childNode = doc.NewElement("section");
         childNode->SetAttribute("id", QString::number(planeSection.id).toStdString().c_str());
-        childNode->SetAttribute("tasknumber", QString::number(planeSection.taskNumber).toStdString().c_str());
-        childNode->SetAttribute("start.locationstate", QString::number(planeSection.startLocationstate).toStdString().c_str());
-        childNode->SetAttribute("goal.locationstate", QString::number(planeSection.GoalLocationstate).toStdString().c_str());
+        childNode->SetAttribute("highstate", QString::number(planeSection.highstate).toStdString().c_str());
         childNode->SetAttribute("starttime", planeSection.startTime.toStdString().c_str());
         childNode->SetAttribute("duration", QString::number(planeSection.duration).toStdString().c_str());
 
@@ -2183,9 +2181,9 @@ void xmlFileOperationPrivate::parseAgentDeflectorInfo(const QDomElement &element
         DeflectorParameter temp;
         temp.id = ele.attribute("id").toInt();
         temp.agentname = ele.attribute("agentname");
-        temp.def_priority = ele.attribute("def_priority").toInt();
-        temp.def_location = ele.attribute("def_location").toInt();
-        temp.rotationspeed = ele.attribute("rotationspeed").toFloat();
+//        temp.def_priority = ele.attribute("def_priority").toInt();
+//        temp.def_location = ele.attribute("def_location").toInt();
+//        temp.rotationspeed = ele.attribute("rotationspeed").toFloat();
 
         int pc = ele.childNodes().count();
 
@@ -2195,7 +2193,7 @@ void xmlFileOperationPrivate::parseAgentDeflectorInfo(const QDomElement &element
             const auto &pele = pnode.toElement();
             if(pnode.nodeName() == "init_state")
             {
-                temp.initLocationstate = static_cast<emBoardstate>(pele.attribute("init.locationstate").toInt());
+                temp.init_highstate = static_cast<emBoardstate>(pele.attribute("init.highstate").toInt());
             }
             else if(pnode.nodeName() == "section_set")
             {
@@ -2209,11 +2207,9 @@ void xmlFileOperationPrivate::parseAgentDeflectorInfo(const QDomElement &element
                     {
                         DeflectorSection temp2;
                         temp2.id = sEle.attribute("id").toInt();
-                        temp2.taskNumber = sEle.attribute("tasknumber").toInt();
+                        temp2.highstate = sEle.attribute("highstate").toInt();
                         temp2.duration = sEle.attribute("duration").toFloat();
                         temp2.startTime = sEle.attribute("starttime");
-                        temp2.startLocationstate = static_cast<emBoardstate>(sEle.attribute("start.locationstate").toInt());
-                        temp2.GoalLocationstate = static_cast<emBoardstate>(sEle.attribute("goal.locationstate").toInt());
                         temp.deflectorSection.append(temp2);
                     }
                 }

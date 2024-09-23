@@ -252,7 +252,7 @@ void ExcelRead::agentpathMatch(const QString &filePath){
 
 void ExcelRead::xmlRewrite_startTime(){
     for(auto& plane:m_logInfo.agentPlaneInfo){
-        int planesSize = m_logInfo.agentOperInfo.size();
+        int planesSize = m_logInfo.agentPlaneInfo.size();
         int sectionIndex = 0;
         for(auto& section:plane.agentSection){
             //sectionID排序
@@ -273,7 +273,7 @@ void ExcelRead::xmlRewrite_startTime(){
                 plane.agentSection[sectionIndex - 2].agentStartTime = startDateTime.toString(TimeFORMAT);
                 //后一
                 startDateTime = QDateTime::fromString(section.agentStartTime, TimeFORMAT);
-                timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex + 1].agentgDuration * 1000);
+                timeInterval = static_cast<qint64>(plane.agentSection[sectionIndex].agentgDuration * 1000);
                 startDateTime = startDateTime.addMSecs(timeInterval);
                 plane.agentSection[sectionIndex + 1].agentStartTime = startDateTime.toString(TimeFORMAT);
             }
@@ -291,3 +291,59 @@ void ExcelRead::xmlRewrite_startTime(){
     }
 }
 
+void ExcelRead::xmlWrite_deflectors(){
+    //偏流板初始化
+    for(int i = 0; i < DeflectorNames.size(); ++i){
+        DeflectorParameter temp;
+        temp.id = i;
+        temp.agentname = DeflectorNames[i];
+        temp.init_highstate = 0;
+        temp.deflectorSection = {};
+        DeflectorSection temp1;
+        temp1.id = 0;
+        temp1.highstate = 0;
+        temp1.startTime = m_logInfo.allStartTime;
+        temp1.duration = 20;
+        temp.deflectorSection.push_back(temp1);
+        m_logInfo.agentDeflectorInfo.push_back(temp);
+    }
+    //遍历飞机存储挡流板section
+    for(auto plane:m_logInfo.agentPlaneInfo){
+        for(auto section:plane.agentSection){
+            if(section.tasknumber == 8 || section.tasknumber == 12){
+                DeflectorSection temp;
+                temp.id = 0;
+                temp.highstate = section.tasknumber == 8? 0 : 1;
+                temp.startTime = section.agentStartTime;
+                temp.duration = 20;
+                QPointF coord(section.agentStartX, section.agentStartY);
+                std::map<QPointF, QString>::iterator it = DeflectorMapping.find(coord);
+                if(it != DeflectorMapping.end()){
+                    for(auto& deflector:m_logInfo.agentDeflectorInfo){
+                        if(it->second == deflector.agentname){
+                            deflector.deflectorSection.push_back(temp);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //挡流板section根据starttime排序,计算duration并给id排序
+    for(auto& deflector:m_logInfo.agentDeflectorInfo){
+        std::sort(deflector.deflectorSection.begin(), deflector.deflectorSection.end(), [](const DeflectorSection &a, const DeflectorSection &b) {
+            return QDateTime::fromString(a.startTime, TimeFORMAT) < QDateTime::fromString(b.startTime, TimeFORMAT);  // 以 QString 进行字典顺序比较
+        });
+        int id = 0;
+        int defSize = deflector.deflectorSection.size();
+        for(auto& section:deflector.deflectorSection){
+            section.id = id;
+            if(id < defSize - 1){
+                QDateTime startDateTime_curr = QDateTime::fromString(section.startTime, TimeFORMAT);
+                QDateTime startDateTime_next = QDateTime::fromString(deflector.deflectorSection[id + 1].startTime, TimeFORMAT);
+                qint64 duration = startDateTime_curr.msecsTo(startDateTime_next);
+                section.duration = static_cast<float>(duration);
+            }
+        }
+    }
+}
